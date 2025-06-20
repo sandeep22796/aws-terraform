@@ -1,0 +1,54 @@
+Terraform + Aws
+
+1) download and install terraform unzip it and copy the address and set it to environment variables
+
+windows << edit environment variables << environment variables << path << double -click New << add the path << open cmd and type (terraform version) to validate
+
+2) download and install aws cli << open cmd and type (aws --version) to validate
+
+3) create aws free account
+
+i) After root user is created add MFA
+ii) Go to Users << create user << Select add user to group option << create group (search admin and select policy name with AdministratorAccess and 	
+Description with Provides full access to AWS services and resources).
+iii) Create user
+iv) Logout from root user and login using the newly created user << Add MFA 
+
+4) OPen Visual Code << create a directory where all your files will be kept (TF-AWS) 
+
+5) Set the environment path
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+
+6) run (aws iam list-users)
+It would give some key credentials related error To fix this go to AWS Console << Users << select the available user(tf-user) go to Security credentials
+ << Create Acces Key << Command Line Interface (CLI) << give any tag name << Create access key.
+ 
+7) set the environment for access key
+$Env:AWS_ACCESS_KEY_ID="AKIA5FUFRZJTOGBEDBLZ"
+$Env:AWS_SECRET_ACCESS_KEY="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"
+
+8) Run (aws iam list-users) it will generate below output
+{
+    "Users": [
+        {
+            "Path": "/",
+            "UserName": "tf-user",
+            "UserId": "AIDA5FUFRZJTLZMXVPB7O",
+            "Arn": "arn:aws:iam::905444444774:user/tf-user",
+            "CreateDate": "2025-06-19T13:59:58+00:00",
+            "PasswordLastUsed": "2025-06-19T14:03:38+00:00"
+        }
+    ]
+}
+
+
+8) Let's create a EC2 instance first with console
+
+Go to EC2 << Launch Instance << Name << AMI (which OS to be used in this case linux) << Instance type (t3.micro as this is free) << Key pair << Create key pair
+<< Key pair name << Key pair type (RSA) << private key format (.pem) this would be download file a pem file << Network Settings << Create security group << Allow SSH traffic(Anywhere)
+<< Select all other options as default << Launch instance..
+
+
+9)   
+
+
