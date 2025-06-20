@@ -49,6 +49,12 @@ Go to EC2 << Launch Instance << Name << AMI (which OS to be used in this case li
 << Select all other options as default << Launch instance..
 
 
-9)   
+ 9) For creating an instance with the help of terraform follow below steps
+
+(i) Add extension required to code for terraform. Find the extension tab in visual code and search (HarshiCorp terraform) and then select install
+(ii) Go to (https://registry.terraform.io/browse/providers) and then go to AWS providers << then use provider 
+(iii) Create another directory inside TF-AWS < aws-ec2.
+(iv) After creating the directory create a .tf file and include the sample code from the teraform registry provider.
+
 
 
