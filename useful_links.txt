@@ -1,0 +1,7 @@
+Terraform + AWS Useful links
+
+https://eu-north-1.console.aws.amazon.com/console/home?region=eu-north-1
+
+https://github.com/sandeep22796
+
+https://registry.terraform.io/browse/providers
