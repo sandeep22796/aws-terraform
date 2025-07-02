@@ -58,3 +58,144 @@ Go to EC2 << Launch Instance << Name << AMI (which OS to be used in this case li
 
 
 
+10) After copying the code make necessary changes to the code as required like AMI Id, instance class, location etc...
+
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "6.0.0"
+    }
+  }
+}
+
+provider "aws" {
+  # Configuration options
+ region = "eu-north-1"
+}
+
+resource "aws_instance" "mytestserver2" {
+  ami = "ami-0989038dff76173d3"
+  instance_type = "t3.micro"
+
+  tags = {
+    Name = "mytestserver2"
+  }
+}
+
+11) To execute this code you need to intialize (init) the terraform package so that AWS is aware and can make necessary changes from here
+
+On the sub-directory(aws-ec2) created under main folder (TF-AWS) right click and run 
+(i) terraform init - to intialize provider plugins
+(ii) teraform validate - to validate the syntax of the code.
+(iii) terraform plan - to compile the terraform code and look for any errors
+(iv) terraform apply - this will use the above code and create the instance.
+(v) terraform destroy - this will destroy all the instance running on the AWS environment
+
+
+12) We can also move the .tfstate file in cloud through which it can be accessed globally
+
+==> .tfstate or terraform state helps terraform to know the current values of the parameters used (e.g if you change the instance class from micro to nano it will first
+delete the current instance and the new instance will be create with nano class.
+
+
+
+13.) Terraform Variables
+
+A variable in terraform is used to store the values of resources which needs to used in mulitples places (e.g region,resources,ami, etc...)
+
+provider "aws" {																		
+  # Configuration options																
+ region = var.region 																	
+}																						
+
+====>>>  Here under provider block the "region" can't be change under this 
+	     block as "region" is aws parameter hence we can create a file 
+		 "region.tf" and inside that file we have varible declared and that
+		  variable would be called using "var.region".
+		  
+
+
+
+resource "aws_instance" "mytestserver1" {								
+  ami           = var.ami_linux                                         
+  instance_type = var.instance_type_micro                               
+                                                                        
+  tags = {
+    Name = "mytestserver1"
+  }
+}
+
+====>>>  Here under resource block the "ami" and "instance_type" parameter can't be renamed 
+  block under "resource" are those are aws predefined parameter.We can create a file 
+ "ami.tf" and "instance.tf" inside that file we have varible declared and that
+  variable would be called using "var.ami_linux" and "var.instance_type_micro".
+ 
+---------------------------------------------------------------------------------
+
+
+resource "aws_instance" "mytestserver2" {								
+  ami           = var.ami_windows                                       
+  instance_type = var.instance_type_nano                                
+                                                                        
+  tags = {
+    Name = "mytestserver2"
+  }
+}
+
+====>>>  Here under resource block the "ami" and "instance_type" parameter can't be renamed 
+  block under "resource" are those are aws predefined parameter.We can create a file 
+ "ami.tf" and "instance.tf" inside that file we have varible declared and that
+  variable would be called using "var.ami_windows" and "var.instance_type_nano".
+
+==========================================================================================================================================
+
+(Note :- Inside "ami.tf" we have two variables)
+
+1.)
+
+variable "ami_linux" {
+  description = "AMI ID for Linux instances"
+  type        = string
+  default     = "ami-05fcfb9614772f051" # Example AMI ID, replace with a valid one for your region
+  
+}
+
+2.)
+
+variable "ami_windows" {
+  description = "AMI ID for Windows instances"
+  type        = string
+  default     = "ami-01998fe5b868df6e3" # Example AMI ID, replace with a valid one for your region
+  
+}
+
+==============================================================================================================================================
+
+(Note :- Inside "instance.tf" we have two variables)
+
+1.) 
+
+variable "instance_type_micro" {
+  description = "Type of EC2 instance"
+  type        = string
+  default     = "t3.micro"
+  }
+
+2.)
+
+variable "instance_type_nano" {
+  description = "Type of EC2 instance"
+  type        = string
+  default     = "t3.nano"
+  }
+  
+
+14. For creating bucket 
+
+resource "aws_s3_bucket" "mybucket" {
+  bucket = "mybucketdemo1725
+}
+
+
+"mybucket" is the block name and inside the block 
