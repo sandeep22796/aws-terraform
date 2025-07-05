@@ -19,7 +19,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "remote-state" {
-  ami = "ami-0c55b159cbfafe1f0" # Example AMI, replace with your desired AMI
+  ami = "ami-00c8ac9147e19828e" # Example AMI, replace with your desired AMI
   instance_type = "t3.nano" # Example instance type, replace with your desired type
   tags = {
     Name = "RemoteStateManagement"
